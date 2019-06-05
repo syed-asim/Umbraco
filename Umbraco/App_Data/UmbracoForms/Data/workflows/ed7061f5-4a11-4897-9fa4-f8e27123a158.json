@@ -1,0 +1,16 @@
+{
+  "id": "ed7061f5-4a11-4897-9fa4-f8e27123a158",
+  "name": "Send template email to me.syedasim@gmail.com",
+  "form": "cc09d925-9e69-4714-b56c-03970dc7a8d6",
+  "active": true,
+  "workflowTypeId": "17c61629-d984-4e86-b43b-a8407b3efea9",
+  "executesOn": "Submitted",
+  "settings": {
+    "Email": "me.syedasim@gmail.com",
+    "SenderEmail": "",
+    "Subject": "The Form '{form_name}' was submitted",
+    "RazorViewFilePath": "Forms/Emails/Example-Template.cshtml",
+    "Attachment": ""
+  },
+  "sortOrder": 1
+}

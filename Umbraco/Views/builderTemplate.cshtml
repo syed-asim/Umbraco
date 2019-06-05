@@ -1,0 +1,78 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@{
+    Layout = null;
+}
+
+@* the fun starts here *@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Survey Builder</title>
+
+    @*
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">*@
+    @*
+        <link rel='stylesheet' href='/css/bootstrap.min.css'>*@
+    <link rel='stylesheet' href='/css/jquery-ui.css'>
+    @*
+        <link rel="stylesheet" href="/css/FormBuilder/Style.css">*@
+    <link rel='stylesheet' href='/css/bootstrap.min.css'>
+
+</head>
+
+<body>
+
+    <section id="four" class="wrapper style2 special">
+        <div class="inner">
+            <header class="major narrow">
+                <h2>Welcome</h2>
+                <p>Ipsum dolor tempus commodo adipiscing</p>
+            </header>
+
+            <form action="" id="form-builder-pages">
+
+                <div class="">
+                    <div class="">
+                        <label>Survey Name</label>
+                        <input name="SurveyName" />
+                    </div>
+                </div>
+
+                <ul id="tabs">
+                    <li><a contenteditable="true" href="#page-1">Page 1</a></li>
+                    <li id="add-page-tab"><a href="#new-page" class="add-page-tab">+ Page</a></li>
+                </ul>
+                <div id="page-1" class="fb-editor"></div>
+                <div id="new-page"></div>
+
+
+
+                <div class="save-all-wrap"><button id="save-all" type="button">Save All</button></div>
+
+                <div class="fb-render">
+
+                </div>
+                <div class="display-all-wrap"><button id="display-all" type="button">Display All</button></div>
+            </form>
+        </div>
+    </section>
+
+
+
+
+
+    <script src='/Scripts/jquery.min.js'></script>
+    <script src='/Scripts//jquery-ui.min.js'></script>
+    <script src="/Scripts/FormBuilder/form-builder.min.js"></script>
+    <script src="/Scripts/FormBuilder/form-render.min.js"></script>
+    <script src="/scripts/FormBuilder/Index.js"></script>
+    <script src="/scripts/FormBuilder/plugins/starRating.js"></script>
+    <script src="/scripts/FormBuilder/plugins/textarea.trumbowyg.js"></script>
+    <script src="/scripts/FormBuilder/plugins/emoRating.js"></script>
+</body>
+
+</html>
