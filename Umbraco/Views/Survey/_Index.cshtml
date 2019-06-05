@@ -1,0 +1,21 @@
+﻿@using Umbraco.Models;
+@inherits Umbraco.Web.Mvc.UmbracoViewPage<List<SurveyModel>>
+<div class="container">
+
+    <div class="card-columns">
+        @foreach (var sur in Model)
+        {
+
+            <div class="card bg-primary">
+                <a href="/surveypreview?SurveyId=@sur.SurveyId">
+                    <div class="card-body text-center">
+                        <p class="card-text">@sur.SurveyName</p>
+
+                    </div>
+                </a>
+            </div>
+
+        }
+
+    </div>
+</div>

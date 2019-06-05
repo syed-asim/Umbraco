@@ -1,0 +1,25 @@
+﻿@using Umbraco.Models;
+@inherits Umbraco.Web.Mvc.UmbracoViewPage<SurveyModel>
+
+
+Survey ID is : @Model.SurveyId
+Name: @Model.SurveyName
+Json: @Model.SurveyContent
+
+<h3>@Model.SurveyName</h3>
+<br />
+
+<div class="fb-render">
+
+</div>
+
+<script>
+    jQuery(function ($) {
+        var  model
+        $('.fb-render').formRender({
+            dataType: 'xml',
+            formData: fbTemplate.value
+        });
+    });
+
+</script>

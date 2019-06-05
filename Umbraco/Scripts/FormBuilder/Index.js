@@ -119,6 +119,35 @@ jQuery($ => {
 
     fbInstances.push({ FormBuilder: $(".fb-editor").formBuilder(options), PageName: "Page 1" });
 
+
+    // Attach a submit handler to the form
+    $("#form-builder-pages").submit(function (event) {
+
+        // Stop form from submitting normally
+        event.preventDefault();
+
+        // Get some values from elements on the page:
+       
+        var surveyName = $(this).find("input[name='SurveyName']").val();
+        var surveyContent = [];
+
+        fbInstances.map(fb => {
+            surveyContent.push({ PageName: fb.PageName, FormFields: fb.FormBuilder.actions.getData() });
+        });
+        var model = { SurveyName: surveyName, SurveyContent: JSON.stringify(surveyContent) };
+        debugger;
+        // Send the data using post
+        var posting = $.post('/Umbraco/Surface/Survey/SaveSurvey', model );
+
+        // Put the results in a div
+        posting.done(function (data) {
+            alert(data);
+            //var content = $(data).find("#content");
+            //$("#result").empty().append(content);
+        });
+        
+    });
+
     $(document.getElementById("save-all")).click(function () {
 
         var model = [];
@@ -133,12 +162,15 @@ jQuery($ => {
             // console.log(JSON.stringify(fb.actions.getData()));
             //return fb.formData;
         });
+
+
+
         console.log(JSON.stringify(model));
         console.log(model);
         frInstances.push(
-        $('.fb-render').formRender({
-            formData: fbInstances[0].FormBuilder.actions.getData()
-        }));
+            $('.fb-render').formRender({
+                formData: fbInstances[0].FormBuilder.actions.getData()
+            }));
     });
 
     $(document.getElementById("display-all")).click(function () {

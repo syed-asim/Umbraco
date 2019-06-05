@@ -1,0 +1,62 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@{
+    Layout = null;
+    var sId = Request.QueryString["surveyId"];
+}
+
+<html>
+<head>
+
+    <link rel='stylesheet' href='/css/jquery-ui.css'>
+    <link rel='stylesheet' href='/css/bootstrap.min.css'>
+    <script src='/Scripts/jquery.min.js'></script>
+    <script src='/Scripts/jquery-ui.min.js'></script>
+    <script>
+        jQuery(function ($) {
+            var sId = '@sId';
+            var SurveyPages = [];
+           // alert(sId);
+            $.get("/Umbraco/Surface/Survey/GetSurvey", { surveyId: sId })
+                .done(function (data) {
+
+                    debugger;
+                    SurveyPages = JSON.parse(data.SurveyContent);
+                    $("#surveyName").text(data.SurveyName);
+
+                    $('.fb-render').formRender({
+
+                        formData: SurveyPages[0].FormFields
+
+                    });
+
+                });
+           // $('.fb-render').formRender({
+              //  dataType: 'xml',
+              //  formData: fbTemplate.value
+           // });
+        });
+
+    </script>
+</head>
+<body>
+    @*@{Html.RenderAction("GetSurvey", "Survey", new { surveyId = sId });}*@
+
+    <h3 id="surveyName">&nbsp;</h3>
+    <br />
+
+    <div class="fb-render">
+
+    </div>
+
+    <script src="/Scripts/FormBuilder/form-render.min.js"></script>
+
+    <script src="/scripts/FormBuilder/plugins/starRating.js"></script>
+    <script src="/scripts/FormBuilder/plugins/textarea.trumbowyg.js"></script>
+    <script src="/scripts/FormBuilder/plugins/emoRating.js"></script>
+
+</body>
+
+</html>
+
+
+
