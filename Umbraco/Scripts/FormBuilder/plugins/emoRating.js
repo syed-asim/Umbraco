@@ -16,9 +16,9 @@ window.fbControls.push(function (controlClass) {
          */
         static get definition() {
             return {
-                icon: '&#x1F60A;',
+                icon: '&#x2B50;&#x1F60A;&#9829;&#x1F44D;&#x1F60D;',
                 i18n: {
-                    default: 'Emoji Rating'
+                    default: 'Rating'
                 }
             };
         }
@@ -42,27 +42,67 @@ window.fbControls.push(function (controlClass) {
          * onRender callback
          */
         onRender() {
-            //var emotionsArray = {
-            //    angry: "&#x1F620;",
-            //    disappointed: "&#x1F61E;",
-            //    meh: "&#x1F610;",
-            //    happy: "&#x1F60A;",
-            //    smile: "&#x1F603;",
-            //    wink: "&#x1F609;",
-            //    laughing: "&#x1F606;",
-            //    inLove: "&#x1F60D;",
-            //    heart: "&#x2764;",
-            //    crying: "&#x1F622;",
-            //    star: "&#x2B50;",
-            //};
-            const value = this.config.value || 4;
-            var emotionsArray = ['angry', 'disappointed', 'meh', 'happy', 'smile'];
-            $('#' + this.config.name).emotionsRating({
-                initialRating: value,
-                emotionSize: 50,
-                bgEmotion: 'happy',
+            var emotionsArray = {
+                angry: "&#x1F620;",
+                disappointed: "&#x1F61E;",
+                meh: "&#x1F610;",
+                happy: "&#x1F60A;",
+                smile: "&#x1F603;",
+                wink: "&#x1F609;",
+                laughing: "&#x1F606;",
+                inlove: "&#x1F60D;",
+                heart: "&#9829;",
+                crying: "&#x1F622;",
+                star: "&#x2B50;",
+                poop: "&#x1F4A9;",
+                cat: "&#x1F63A;",
+                like: "&#x1F44D;",
+                dislike: "&#x1F44E;",
+                redHeart: "&#9829;"
+            };
+
+            var emotionsArray = [];
+            var bgEmo = "";
+            var bgColor;
+            switch (this.config.emojiType) {
+                case "Emojis":
+                    emotionsArray = ['angry', 'disappointed', 'meh', 'happy', 'inlove'];
+                    bgEmo = 'happy';
+                    break;
+                case "Star":
+                    emotionsArray = ['star'];
+                    bgEmo = 'star';
+                    break;
+                case "ThumbsUp":
+                    emotionsArray = ['like'];
+                    bgEmo = 'like';
+                    break;
+                case "Hearts":
+                    emotionsArray = ['heart'];
+                    bgEmo = 'heart';
+                    bgColor = 'red';
+                    break;
+                case "Poop":
+                    emotionsArray = ['poop'];
+                    bgEmo = 'poop';
+                    break;
+                case "Excited":
+                    emotionsArray = ['laughing'];
+                    bgEmo = 'laughing';
+                    break;
+                default:
+                    emotionsArray = ['angry', 'disappointed', 'meh', 'happy', 'inlove'];
+                    bgEmo = 'happy';
+                    break;
+
+            }
+            $("#"+ this.config.name).emotionsRating({
+                initialRating: this.config.value || 4,
+                emotionSize: this.config.emojiSize || 50,
                 emotions: emotionsArray,
-                color: 'gold'
+                color: bgColor|| 'gold',
+                bgEmotion: bgEmo,// 'happy',
+                inputName: "rating-" + this.config.name,
             });
         }
     }

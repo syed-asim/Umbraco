@@ -26,53 +26,56 @@
 
 <body>
 
-    <section id="four" class="wrapper style2 special">
-        <div class="inner">
-            <header class="major narrow">
-                <h2>Welcome</h2>
-                <p>Ipsum dolor tempus commodo adipiscing</p>
-            </header>
 
-            <form action="" id="form-builder-pages">
+    <div id="surveryIntro" class="container">
+        <form action="" id="intro-form">
 
-                <div class="">
-                    <div class="">
-                        <label>Survey Name</label>
-                        <input name="SurveyName" />
-                    </div>
+            <div class="intro-wrap">
+
+
+            </div>
+            <div id="saveSurveyIntro-btns" class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button id="saveSurveyIntro" type="submit" class="btn-lg btn-primary">Next</button>
                 </div>
-
-                <ul id="tabs">
-                    <li><a contenteditable="true" href="#page-1">Page 1</a></li>
-                    <li id="add-page-tab"><a href="#new-page" class="add-page-tab">+ Page</a></li>
-                </ul>
-                <div id="page-1" class="fb-editor"></div>
-                <div id="new-page"></div>
+            </div>
+        </form>
+    </div>
 
 
-                <button type="submit">Save</button>
-                <div class="save-all-wrap"><button id="save-all" type="button">Save All</button></div>
+    <div id="surveryContent" class="container hide-ctrl">
+        <form action="" id="form-builder-pages">
 
-                <div class="fb-render">
+            <ul id="tabs">
 
-                </div>
-                <div class="display-all-wrap"><button id="display-all" type="button">Display All</button></div>
-            </form>
-        </div>
-    </section>
+                <li id="add-page-tab"><a href="#new-page" class="add-page-tab">+ Page</a></li>
+            </ul>
+            <div id="new-page"></div>
 
+            <button type="submit">Save</button>
 
+        </form>
 
-
+    </div>
 
     <script src='/Scripts/jquery.min.js'></script>
     <script src='/Scripts//jquery-ui.min.js'></script>
     <script src="/Scripts/FormBuilder/form-builder.min.js"></script>
     <script src="/Scripts/FormBuilder/form-render.min.js"></script>
-    <script src="/scripts/FormBuilder/Index.js"></script>
-    <script src="/scripts/FormBuilder/plugins/starRating.js"></script>
+    <script src="/scripts/FormBuilder/surveyBuilder.js"></script>
+    @*<script src="/scripts/FormBuilder/plugins/starRating.js"></script>*@
     <script src="/scripts/FormBuilder/plugins/textarea.trumbowyg.js"></script>
     <script src="/scripts/FormBuilder/plugins/emoRating.js"></script>
+
+    <style>
+        .form-wrap.form-builder .frmb-control li .control-icon {
+            width: auto !important;
+        }
+
+        .hide-ctrl {
+            display: none;
+        }
+    </style>
 </body>
 
 </html>

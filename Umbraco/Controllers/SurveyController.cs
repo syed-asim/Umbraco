@@ -32,6 +32,7 @@ namespace Umbraco.Controllers
                     SurveyName = item.SurveyName
                 });
             }
+           // return Json(model, JsonRequestBehavior.AllowGet);
             return PartialView(Survey_Folder_Path + "_Index.cshtml", model);
         }
 

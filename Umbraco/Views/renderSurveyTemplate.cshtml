@@ -4,56 +4,135 @@
     var sId = Request.QueryString["surveyId"];
 }
 
-<html>
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Survey Builder</title>
 
+    @*
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">*@
+    @*
+        <link rel='stylesheet' href='/css/bootstrap.min.css'>*@
     <link rel='stylesheet' href='/css/jquery-ui.css'>
+    @*
+        <link rel="stylesheet" href="/css/FormBuilder/Style.css">*@
     <link rel='stylesheet' href='/css/bootstrap.min.css'>
-    <script src='/Scripts/jquery.min.js'></script>
-    <script src='/Scripts/jquery-ui.min.js'></script>
-    <script>
-        jQuery(function ($) {
-            var sId = '@sId';
-            var SurveyPages = [];
-           // alert(sId);
-            $.get("/Umbraco/Surface/Survey/GetSurvey", { surveyId: sId })
-                .done(function (data) {
 
-                    debugger;
-                    SurveyPages = JSON.parse(data.SurveyContent);
-                    $("#surveyName").text(data.SurveyName);
-
-                    $('.fb-render').formRender({
-
-                        formData: SurveyPages[0].FormFields
-
-                    });
-
-                });
-           // $('.fb-render').formRender({
-              //  dataType: 'xml',
-              //  formData: fbTemplate.value
-           // });
-        });
-
-    </script>
 </head>
+
 <body>
-    @*@{Html.RenderAction("GetSurvey", "Survey", new { surveyId = sId });}*@
 
-    <h3 id="surveyName">&nbsp;</h3>
-    <br />
+    <section id="four" class="wrapper style2 special">
+        <div class="inner">
+            <header class="major narrow">
+                <h2>Welcome</h2>
+                <p>Ipsum dolor tempus commodo adipiscing</p>
+            </header>
 
-    <div class="fb-render">
+            <form action="" id="form-builder-pages">
 
-    </div>
+                <div class="">
+                    <div class="">
+                        <h3 id="surveyName">&nbsp;</h3>
 
+                    </div>
+                </div>
+
+                <ul id="tabs"></ul>
+                <div id="forms-rendered">
+
+                </div>
+
+
+                <button type="button" class="hide-btn">Back</button>
+                <button type="submit" class="hide-btn">Save</button>
+                <button type="button" class="hide-btn">Next</button>
+
+
+
+
+            </form>
+        </div>
+    </section>
+
+
+
+
+
+    <script src='/Scripts/jquery.min.js'></script>
+    <script src='/Scripts//jquery-ui.min.js'></script>
+    <script src="/Scripts/FormBuilder/form-builder.min.js"></script>
     <script src="/Scripts/FormBuilder/form-render.min.js"></script>
 
     <script src="/scripts/FormBuilder/plugins/starRating.js"></script>
     <script src="/scripts/FormBuilder/plugins/textarea.trumbowyg.js"></script>
     <script src="/scripts/FormBuilder/plugins/emoRating.js"></script>
+    <script>
+        var sId = '@sId';
+        var SurveyPages = [];
+        var tabsEl = $("#tabs");
 
+
+        jQuery(function ($) {
+
+            $.get("/Umbraco/Surface/Survey/GetSurvey", { surveyId: sId })
+                .done(function (data) {
+                    renderForm(data);
+                });
+            });
+
+
+
+        function renderForm(data) {
+                //debugger;
+            $("#surveyName").text(data.SurveyName);
+
+            SurveyPages = JSON.parse(data.SurveyContent);
+
+            for (var i = 0; i < SurveyPages.length; i++) {
+
+                var tab = ' <li><a href="#' + SurveyPages[i].PageId + '">' + SurveyPages[i].PageName + '</a></li>';
+                $(tabsEl).append(tab);
+
+                var f = '<div id="' + SurveyPages[i].PageId + '" class="fb-render">' + SurveyPages[i].PageName + ' </div>';
+                //$(renEl).append(f);
+                $(tabsEl).after(f);
+                var ta = $("#" + SurveyPages[i].PageId);
+                $(ta).formRender({
+                formData: SurveyPages[i].FormFields
+                });
+            }
+
+            initTabs();
+        }
+
+        function initTabs() {
+            var fbPages = $(document.getElementById("form-builder-pages"));
+             $(fbPages).tabs({
+            beforeActivate: function (event, ui) {
+                if (ui.newPanel.selector === "#new-page") {
+                    return false;
+                }
+            }
+            });
+        }
+
+    </script>
+    <style>
+
+        .hide-btn {
+            display: none;
+        }
+    </style>
 </body>
 
 </html>

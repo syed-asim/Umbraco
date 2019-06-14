@@ -444,11 +444,12 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\FormBuilder\form-builder.min.js" />
     <Content Include="Scripts\FormBuilder\form-render.min.js" />
-    <Content Include="Scripts\FormBuilder\Index.js" />
     <Content Include="Scripts\FormBuilder\plugins\emoRating.js" />
     <Content Include="Scripts\FormBuilder\plugins\js\emotion-ratings.min.js" />
     <Content Include="Scripts\FormBuilder\plugins\starRating.js" />
     <Content Include="Scripts\FormBuilder\plugins\textarea.trumbowyg.js" />
+    <Content Include="Scripts\FormBuilder\surveyBuilder.js" />
+    <Content Include="Scripts\FormBuilder\SurveyRenderer.js" />
     <Content Include="Scripts\ie\html5shiv.js" />
     <Content Include="Scripts\ie\respond.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -2349,6 +2350,7 @@
     <Content Include="Views\Survey\_Index.cshtml" />
     <Content Include="Views\Survey\_RenderSurvey.cshtml" />
     <Content Include="Views\renderSurveyTemplate.cshtml" />
+    <Content Include="Views\surveyTemplate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

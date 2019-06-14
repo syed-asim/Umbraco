@@ -43,19 +43,21 @@ window.fbControls.push(function (controlClass) {
          * onRender callback
          */
         onRender() {
-            const value = this.config.value || 3;
-            
-            $('#' + this.config.name).rateYo({
-                rating: value,
-                numStars: this.config.noStars || 5,
+            //const value = this.config.value || 3;
+
+            var el = this;
+            // todo reload data from userData field
+            $('#' + el.config.name).rateYo({
+                rating: el.config.value || 3,
+                numStars: el.config.noStars || 5,
                 fullStar: true,
                 multiColor: {
                     "startColor": "#FF0000", //RED
                     "endColor": "#00FF00"  //GREEN
                 },
-                starWidth: (this.config.size || 40 ) + 'px',
-                //starSvg: ``
+                starWidth: (el.config.size || 40) + 'px',
             });
+
         }
     }
 
