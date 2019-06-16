@@ -16,43 +16,53 @@
 
     <link rel='stylesheet' href='/css/bootstrap.min.css'>
     <link rel='stylesheet' href='/css/jquery-ui.css'>
-
+    <link rel='stylesheet' href='/css/FormBuilder/minimalForm.css'>
+    <link rel='stylesheet' href='/css/FormBuilder/style.css'>
+    <link rel='stylesheet' href='/css/FormBuilder/controls.css'>
 
 </head>
 
 <body>
-    <div class="jumbotron text-center">
-        <h1 id="surveyName">My First Bootstrap Page</h1>
-        <p>Resize this responsive page to see the effect!</p>
-    </div>
+    @*<div class="jumbotron text-center">
+            <h1 id="surveyName">My First Bootstrap Page</h1>
+            <p>Resize this responsive page to see the effect!</p>
+        </div>*@
 
-    <div class="container">
+    <div class="container ">
 
-        <form id="form-intro-page" class="form-horizontal">
+        <form id="intro-page" class="intro-container upform-main">
 
-            <div id="intro-btns" class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button id="btnBegin" onclick="beginSurvey();" type="button" class="btn-lg btn-primary hide-ctrl">Begin</button>
+            <div id="intro-media">
+                @*<img alt="" class="img-fluid" src="https://images.typeform.com/images/sdeUzvyQ33sC/image/default">*@
+            </div>
+            <div id="surveyName" class="upform-header">
+                &nbsp;
+            </div>
+            <p id="introText" class="surveyIntro"></p>
+
+            <div id="intro-btns" class="intro-btns">
+                <div class="col-12">
+                    <button id="btnBegin" onclick="beginSurvey();" type="button" class="btn-lg btn-primary">Begin</button>
                 </div>
             </div>
-
         </form>
 
-
-        <form id="form-builder-pages" class="form-horizontal">
-            <input type="hidden" value="@sId" id="surveyId" />
-
-
-            <div id="frm-btns" class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button id="btnNext" onclick="NextPage();" type="button" class="btn-lg btn-primary hide-ctrl">Next</button>
-                    <button id="btnSubmit" type="submit" class="btn-lg btn-success hide-ctrl">Submit</button>
+        <div class="upform">
+            <form id="form-builder-pages" class="form-horizontal">
+                <div class="upform-main">
+                    <div id="frm-btns" class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button id="btnNext" onclick="NextPage();" type="button" class="btn-lg btn-primary hide-ctrl">Next</button>
+                            <button id="btnSubmit" type="button" onclick="SubmitSurvey();" class="btn-lg btn-success hide-ctrl">Submit</button>
+                        </div>
+                    </div>
                 </div>
-            </div>
+                <input type="hidden" value="@sId" id="surveyId" />
+            </form>
+        </div>
 
-        </form>
 
-        <div id="thankYou" class="hide-ctrl">
+        <div id="thankYou" class="hide-ctrl thankYou-message vertical-center">
             <h1>
                 Thank you, Have a great day ahead!
             </h1>
@@ -64,13 +74,17 @@
 
     <script src='/Scripts/jquery.min.js'></script>
     <script src='/Scripts//jquery-ui.min.js'></script>
-    <script src="/Scripts/FormBuilder/form-builder.min.js"></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/2.1.2/jquery.scrollTo.min.js'></script>
+    @*<script src="/Scripts/FormBuilder/form-builder.min.js"></script>*@
     <script src="/Scripts/FormBuilder/form-render.min.js"></script>
 
     <script src="/scripts/FormBuilder/plugins/starRating.js"></script>
     <script src="/scripts/FormBuilder/plugins/textarea.trumbowyg.js"></script>
     <script src="/scripts/FormBuilder/plugins/emoRating.js"></script>
     <script src="/scripts/FormBuilder/SurveyRenderer.js"></script>
+    <script src="/scripts/FormBuilder/minimalForm.js"></script>
+    
+
     <style>
 
         .hide-ctrl {

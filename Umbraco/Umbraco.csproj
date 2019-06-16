@@ -436,14 +436,17 @@
     <Content Include="Content\images\pic11.jpg" />
     <Content Include="Content\Site.css" />
     <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\FormBuilder\minimalForm.css" />
     <Content Include="css\FormBuilder\Style.css" />
     <Content Include="css\jquery-ui.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="css\FormBuilder\controls.css" />
     <Content Include="Scripts\FormBuilder\form-builder.min.js" />
     <Content Include="Scripts\FormBuilder\form-render.min.js" />
+    <Content Include="Scripts\FormBuilder\minimalForm.js" />
     <Content Include="Scripts\FormBuilder\plugins\emoRating.js" />
     <Content Include="Scripts\FormBuilder\plugins\js\emotion-ratings.min.js" />
     <Content Include="Scripts\FormBuilder\plugins\starRating.js" />
@@ -459,6 +462,7 @@
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\pekeUpload.min.js" />
     <Content Include="Scripts\skel.min.js" />
     <Content Include="Scripts\util.js" />
     <Content Include="Umbraco\assets\css\canvasdesigner.css" />
@@ -2242,7 +2246,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\_Header.cshtml" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Umbraco\assets\fonts\helveticons\helveticons.eot" />
     <Content Include="Umbraco\assets\fonts\helveticons\helveticons.ttf" />
     <Content Include="Umbraco\assets\fonts\helveticons\helveticons.woff" />
@@ -2362,7 +2365,9 @@
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.2.6.1\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.2.6.1\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Content\Uploads\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

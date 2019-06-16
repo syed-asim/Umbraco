@@ -1,4 +1,5 @@
 var sId = null;
+var surveySettings;
 var SurveyPages = [];
 var formBtns = $("#frm-btns");
 var currentPageIndex = 0;
@@ -7,28 +8,53 @@ var hideCtrlCssClassName = "hide-ctrl";
 
 jQuery(function ($) {
     sId = $("#surveyId").val();
-    
+
 
     $.get("/Umbraco/Surface/Survey/GetSurvey", { surveyId: sId })
         .done(function (data) {
-            $("#surveyName").text(data.SurveyName);
+            $("#surveyName").text(data.surveyName);
+            //debugger;
+            surveySettings = JSON.parse(data.SurveySettings);
             SurveyPages = JSON.parse(data.SurveyContent);
             DisplayIntro();
         });
 
-    $("#form-builder-pages").submit(function (event) {
+    //$("#form-builder-pages").submit(function (event) {
 
-        // Stop form from submitting normally
-        event.preventDefault();
-        SubmitSurvey();
+    //    // Stop form from submitting normally
+    //    event.preventDefault();
+    //    SubmitSurvey();
 
-    });
+    //});
 });
 
 function DisplayIntro() {
+    // debugger;
+    $("#surveyName").text(surveySettings.find(e => e.name === 'surveyName').userData[0]);
+    $("#introText").text(surveySettings.find(e => e.name === 'introText').userData[0]);
+    var topImage = '<img alt="" style="max-width:65%;padding-top: 6rem;" class="img-fluid" src="' + surveySettings.find(e => e.name === 'surveyMedia').userData[0] + '">';
+    $('#intro-media').append(topImage);
+    //debugger;
+    renderStyle();
+}
 
-    //
-    beginSurvey();
+function renderStyle() {
+   // debugger;
+    var bgColor = surveySettings.find(e => e.name === 'introBgColor').userData[0];
+    var fontColor = surveySettings.find(e => e.name === 'introTextColor').userData[0];
+    var style =
+        '.form-control:focus{border-color:' + fontColor + ';color:' + fontColor + ';}' +
+        'body{background-color:' + bgColor + '; color:' + fontColor + ';}' +
+        ':button{background-color:' + fontColor + '; color:' + bgColor + ';}' +
+        'input[type=text]:focus{border:1px solid ' + fontColor + '!important; color:' + fontColor + ';}' +
+        'input[type="radio"]:after{background-color:' + fontColor + ';}' +
+        '.input-block select{background:' + bgColor + ' !important; color:' + fontColor + ' !important;}' +
+        'input[type="radio"]:checked:after{background-color:' + bgColor + ';border:2px solid ' + fontColor + ';}';
+    $("<style>" + style + "</style>").appendTo("head")
+}
+
+function beginSurvey() {
+    $('#intro-page').toggle();
     RenderPage(0);
 }
 
@@ -46,9 +72,49 @@ function RenderPage(pageIndex = 0) {
     }
 
     var ta = $("#" + SurveyPages[pageIndex].PageId);
-    $(ta).formRender({
-        formData: SurveyPages[pageIndex].FormFields
-    });
+
+    const formRenderOptions =
+    {
+        disableInjectedStyle: false,
+        //container: false,
+        formData: SurveyPages[pageIndex].FormFields,
+        //dataType: 'json', // 'xml' | 'json'
+        //label: {
+        //    formRendered: 'Form Rendered',
+        //    noFormData: 'No form data.',
+        //    other: 'Other',
+        //    selectColor: 'Select Color'
+        //},
+        //render: true,
+        notify: {
+            error: function (message) {
+                return console.error(message);
+            },
+            success: function (message) {
+                return console.log(message);
+            },
+            warning: function (message) {
+                return console.warn(message);
+            }
+        },
+        layoutTemplates: {
+            default: function (field, label, help, data) {
+                // <div class="label">Q3. Would you like to get started NOW?</div>
+                label = $('<div/>')
+                    .addClass('label')
+                    .attr('id', 'lbl-' + data.id)
+                    .text(data.label);
+
+                field = $('<div/>')
+                    .addClass('input-control')
+                    .append(field);
+                return $('<div class="input-block"/>').append(label, field, help);
+            }
+        }
+    };
+    $(ta).formRender(formRenderOptions);
+    $('#form-builder-pages').upform();
+    $('#form-builder-pages').find(".input-block").first().click();
 }
 
 function NextPage() {
@@ -58,8 +124,6 @@ function NextPage() {
     // Render Next Page
     RenderPage((currentPageIndex + 1));
 }
-
-
 
 function SubmitSurvey() {
 
@@ -84,7 +148,7 @@ function persistSurveyState() {
         var fld = SurveyPages[currentPageIndex].FormFields[i];
 
         if (fld.type === "emoRating") {
-            debugger;
+            // debugger;
             fld.userData = [$('input[name=rating-' + fld.name + ']').val()];
             SurveyPages[currentPageIndex].FormFields[i] = fld;
         }
@@ -104,7 +168,6 @@ function removeElement(elementId) {
     var element = document.getElementById(elementId);
     element.parentNode.removeChild(element);
 }
-
 
 function changeRating(pageIndex, ctrlId, value) {
 

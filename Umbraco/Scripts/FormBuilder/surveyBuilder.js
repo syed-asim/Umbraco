@@ -1,12 +1,14 @@
 
 var fbPages = $(document.getElementById("form-builder-pages"));
-
+var introForm = {};
+var introFormData = null;
+var mediaUrl;
 var surveyModel = {
     Id: '',
     SurveyId: '',
     SurveyName: '',
     SurveyContent: '',
-    SurveySettings:''
+    SurveySettings: ''
 };
 
 var fbInstances = [];
@@ -126,22 +128,49 @@ jQuery($ => {
 
 
 function initIntroForm() {
-    var introTemplate = '[{"type":"text","required":true,"label":"Survey Name","placeholder":"Enter survey name...","className":"form-control survey-name","name":"SurveyName","subtype":"text","maxlength":50},{"type":"file","label":"Want to display your logo?","description":"Your logo will be display above the intro text.","placeholder":"Your logo will show up at the beginning of survey","className":"form-control surveyLogo","name":"surveyLogo","subtype":"file"},{"type":"textarea","required":true,"label":"Intro","description":"Simply state the reason for your survey and what you want to achieve with it, will persuade more people to complete it.","placeholder":"Simply state the reason for your survey and what you want to achieve with it, will persuade more people to complete it.","className":"form-control","name":"introText","subtype":"textarea","maxlength":1000,"rows":4},{"type":"file","label":"Intro video or image?","description":"Additional video or image to display below the intro text","placeholder":"Additional video or image to display below the intro text","className":"form-control introMedia","name":"introMedia","subtype":"file"},{"type":"autocomplete","label":"Intro page background color?","placeholder":"white","className":"form-control introBgColor","name":"introBgColor","requireValidOption":true,"values":[{"label":"White","value":"White"},{"label":"black","value":"black"},{"label":"green","value":"option-3"}]},{"type":"autocomplete","label":"Intro page text color?","placeholder":"white","className":"form-control introTextColor","name":"introTextColor","requireValidOption":true,"values":[{"label":"White","value":"White"},{"label":"black","value":"black"},{"label":"green","value":"option-3"}]},{"type":"textarea","label":"Thank you message to show upon completion of survey?","placeholder":"Thank you for you your valuable feedback, Have a great day!","className":"form-control thankyouMessage","name":"thankyouMessage","subtype":"textarea","maxlength":200,"rows":4}]';
+    //var introTemplate = '[{"type":"text","required":true,"label":"Title","placeholder":"Enter survey name...","className":"form-control survey-name","name":"SurveyName","subtype":"text","maxlength":50},{"type":"file","label":"Want to display your logo?","description":"Your logo will be display above the intro text.","placeholder":"Your logo will show up at the beginning of survey","className":"form-control surveyLogo","name":"surveyLogo","subtype":"file"},{"type":"textarea","required":true,"label":"Intro","description":"Simply state the reason for your survey and what you want to achieve with it, will persuade more people to complete it.","placeholder":"Simply state the reason for your survey and what you want to achieve with it, will persuade more people to complete it.","className":"form-control","name":"introText","subtype":"textarea","maxlength":1000,"rows":4},{"type":"file","label":"Intro video or image?","description":"Additional video or image to display below the intro text","placeholder":"Additional video or image to display below the intro text","className":"form-control introMedia","name":"introMedia","subtype":"file"},{"type":"autocomplete","label":"Intro page background color?","placeholder":"white","className":"form-control introBgColor","name":"introBgColor","requireValidOption":true,"values":[{"label":"White","value":"White"},{"label":"black","value":"black"},{"label":"green","value":"option-3"}]},{"type":"autocomplete","label":"Intro page text color?","placeholder":"white","className":"form-control introTextColor","name":"introTextColor","requireValidOption":true,"values":[{"label":"White","value":"White"},{"label":"black","value":"black"},{"label":"green","value":"option-3"}]},{"type":"textarea","label":"Thank you message to show upon completion of survey?","placeholder":"Thank you for you your valuable feedback, Have a great day!","className":"form-control thankyouMessage","name":"thankyouMessage","subtype":"textarea","maxlength":200,"rows":4}]';
+    var introTemplate='[{"type":"text","required":true,"label":"Title","placeholder":"Enter survey name...","className":"form-control survey-name","name":"surveyName","subtype":"text","maxlength":50},{"type":"file","label":"Want to display your logo/video?","description":"Your logo/video will be display above the intro text.","placeholder":"Your logo/video will show up at the beginning of survey","className":"form-control surveyMedia","name":"surveyMedia","subtype":"file"},{"type":"textarea","required":true,"label":"Introduction","description":"Simply state the reason for your survey and what you want to achieve with it, will persuade more people to complete it.","placeholder":"Simply state the reason for your survey and what you want to achieve with it, will persuade more people to complete it.","className":"form-control introText","name":"introText","subtype":"textarea","maxlength":1000,"rows":4},{"type":"autocomplete","label":"Intro page background color?","placeholder":"white","className":"form-control introBgColor","name":"introBgColor","requireValidOption":true,"values":[{"label":"White","value":"White"},{"label":"black","value":"black"},{"label":"green","value":"green"}]},{"type":"autocomplete","label":"Intro page text color?","placeholder":"white","className":"form-control introTextColor","name":"introTextColor","requireValidOption":true,"values":[{"label":"White","value":"White"},{"label":"black","value":"black"},{"label":"green","value":"green"}]},{"type":"textarea","label":"Thank you message to show upon completion of survey?","placeholder":"Thank you for you your valuable feedback, Have a great day!","className":"form-control thankyouMessage","name":"thankyouMessage","subtype":"textarea","maxlength":200,"rows":4}]';
     const introWrap = $('.intro-wrap');
-    const formRender = introWrap.formRender({ formData: introTemplate});
+
+    const formRenderOptions =
+    {
+        //disableInjectedStyle: true,
+        formData: introTemplate,
+        //layoutTemplates: {
+        //    default: function (field, label, help, data) {
+        //        // debugger;
+        //        if (data.type == 'file') {
+
+        //            let subDiv = $('<div/>')
+        //                .addClass('bar');
+        //            field = $('<div/>')
+        //                .attr('id', 'progress-' + data.id)
+        //                .append(subDiv)
+        //                .append(field);
+        //        }
+        //        return $('<div/>').append(label, field, help);
+        //    }
+        //}
+    };
+
+
+    introForm = introWrap.formRender(formRenderOptions);
     $("#intro-form").submit(function (event) {
         // Stop form from submitting normally
+
         event.preventDefault();
         SaveIntroForm();
     });
+    setupFileUploader();
 }
 
 function SaveIntroForm() {
     //Save survey
-
-
     $('#surveryIntro').addClass('hide-ctrl');
     $('#surveryContent').removeClass('hide-ctrl');
+    introFormData = $(introForm).formRender('userData');
+    introFormData.find(e => e.name === 'surveyMedia').userData = [mediaUrl];
+    debugger;
     //Init Survey Builder
     initSurveyBuilder();
 }
@@ -168,12 +197,14 @@ function initSurveyBuilder() {
 function submitSurveyBuilder(event) {
 
     var surveyContent = [];
-    var surveyName = $(this).find("input[name='SurveyName']").val();
+    var surveyName = introFormData[0].userData[0];
+    var surveySettings = introFormData;
+
     fbInstances.map(fb => {
         surveyContent.push({ PageId: fb.PageId, PageName: fb.PageName, FormFields: fb.FormBuilder.actions.getData() });
     });
 
-    var model = { SurveyName: surveyName, SurveyContent: JSON.stringify(surveyContent) };
+    var model = { SurveyName: surveyName, SurveyContent: JSON.stringify(surveyContent), SurveySettings: JSON.stringify(surveySettings) };
 
     var posting = $.post('/Umbraco/Surface/Survey/SaveSurvey', model);
 
@@ -229,4 +260,38 @@ function initFbTabs() {
             }
         }
     });
+}
+
+function setupFileUploader() {
+    // debugger;
+
+    $('#surveyMedia').fileupload({
+        url: '/Umbraco/Surface/Survey/saveFile',
+        //progressall: function (e, data) {
+        //    var progress = parseInt(data.loaded / data.total * 100, 10);
+        //    var progress = parseInt(data.loaded / data.total * 100, 10);
+        //    $('#progress-surveyLogo .bar').css(
+        //        'width',
+        //        progress + '%'
+        //    );
+        //},
+        add: function (e, data) {
+            var jqXHR = data.submit()
+                .success(function (result, textStatus, jqXHR) {
+                    //debugger;
+                    // alert('success..');
+
+                })
+                .error(function (jqXHR, textStatus, errorThrown) {
+                    debugger;
+                    alert('Error..' + errorThrown);
+                })
+                .complete(function (result, textStatus, jqXHR) {
+                    mediaUrl = result.responseJSON.path;
+                    $('#surveyMedia').parent().append('<p class="text-success">file uploaded successfully...</p>');
+                    //alert('complete..');
+                });
+        },
+    });
+
 }

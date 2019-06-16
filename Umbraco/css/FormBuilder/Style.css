@@ -1,23 +1,136 @@
 
-.save-all-wrap{text-align:center;padding:20px;}
+.save-all-wrap {
+    text-align: center;
+    padding: 20px;
+}
 
 .form-rendered #build-wrap {
-  display: none;
+    display: none;
 }
 
 .render-wrap {
-  display: none;
+    display: none;
 }
 
 .form-rendered .render-wrap {
-  display: block;
+    display: block;
 }
 
 #edit-form {
-  display: none;
-  float: right;
+    display: none;
+    float: right;
 }
 
 .form-rendered #edit-form {
-  display: block;
+    display: block;
 }
+
+.intro-container {
+    font-weight: unset;
+    font-size: 24px;
+    text-align: center;
+    line-height: 32px;
+}
+
+    .intro-container .surveyIntro {
+        font-weight: unset;
+        font-size: 24px;
+        text-align: center;
+        line-height: 32px;
+        /*color: rgb(60, 60, 60);*/
+        max-width: 840px;
+        display: block;
+        margin: 0px auto;
+    }
+
+    .intro-container .intro-btns {
+        margin: 2rem 0;
+    }
+
+.bar {
+    height: 18px;
+    background: green;
+}
+
+.surveyMedia {
+    height: auto !important;
+}
+
+.upform-header {
+    margin-top: 2rem;
+}
+
+input[type="radio"] {
+    -ms-transform: scale(1.5); /* IE 9 */
+    -webkit-transform: scale(1.5); /* Chrome, Safari, Opera */
+    transform: scale(1.5);
+}
+
+.fb-radio label {
+    padding-left: 12px;
+}
+
+input[type='radio']:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    /*background-color: #d1d3d1;
+    content: '';*/
+    display: inline-block;
+    visibility: visible;
+    /*border: 2px solid white;*/
+}
+
+input[type='radio']:checked:after {
+    width: 14px;
+    height: 14px;
+    border-radius: 14px;
+    top: -3px;
+    left: -1px;
+    position: relative;
+    /*background-color: red;*/
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    /*border: 2px solid white;*/
+}
+
+.rendered-form .form-control {
+    font-size: 1.5em !important;
+    height: auto !important;
+}
+
+.input-block select {
+    background: transparent !important;
+}
+
+/*.center-div {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100px;
+    height: 100px;
+    background-color: #ccc;
+    border-radius: 3px;
+}*/
+.vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 25%;
+    left: 0;
+    -ms-transform: translateY(-25%);
+    transform: translateY(-25%);
+}
+
+.thankYou-message {
+    text-align: center;
+    width: 100%;
+}
+
+
