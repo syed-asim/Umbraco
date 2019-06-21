@@ -4,6 +4,49 @@ var SurveyPages = [];
 var formBtns = $("#frm-btns");
 var currentPageIndex = 0;
 var hideCtrlCssClassName = "hide-ctrl";
+const formRenderOptions =
+{
+    disableInjectedStyle: false,
+    //container: false,
+    formData: null,// SurveyPages[pageIndex].FormFields,
+    //dataType: 'json', // 'xml' | 'json'
+    //label: {
+    //    formRendered: 'Form Rendered',
+    //    noFormData: 'No form data.',
+    //    other: 'Other',
+    //    selectColor: 'Select Color'
+    //},
+    //render: true,
+    notify: {
+        error: function (message) {
+            return console.error(message);
+        },
+        success: function (message) {
+            return console.log(message);
+        },
+        warning: function (message) {
+            return console.warn(message);
+        }
+    },
+    layoutTemplates: {
+        default: function (field, label, help, data) {
+            // <div class="label">Q3. Would you like to get started NOW?</div>
+            //label = $('<div/>')
+            //    .addClass('label')
+            //    .attr('id', 'lbl-' + data.id)
+            //    .text(data.label);
+
+            //field = $('<div/>')
+            //    .addClass('input-control')
+            //    .append(field);
+            label = $(label)
+                .addClass('label');
+            field = $(field)
+                .addClass('input-control');
+            return $('<div class="input-block"/>').append(label, field, help);
+        }
+    }
+};
 
 
 jQuery(function ($) {
@@ -18,7 +61,7 @@ jQuery(function ($) {
             SurveyPages = JSON.parse(data.SurveyContent);
             DisplayIntro();
         });
-
+    //renderThemes();
     //$("#form-builder-pages").submit(function (event) {
 
     //    // Stop form from submitting normally
@@ -35,21 +78,33 @@ function DisplayIntro() {
     var topImage = '<img alt="" style="max-width:65%;padding-top: 6rem;" class="img-fluid" src="' + surveySettings.find(e => e.name === 'surveyMedia').userData[0] + '">';
     $('#intro-media').append(topImage);
     //debugger;
-    renderStyle();
+    //renderStyle();
 }
 
 function renderStyle() {
-   // debugger;
+    // debugger;
     var bgColor = surveySettings.find(e => e.name === 'introBgColor').userData[0];
     var fontColor = surveySettings.find(e => e.name === 'introTextColor').userData[0];
+
+    let bgAndTextCss = 'background-color:' + bgColor + '; color:' + fontColor + ';';
+    let bgAndTextCssReverse = 'background-color:' + fontColor + '; color:' + bgColor + ';';
+
     var style =
-        '.form-control:focus{border-color:' + fontColor + ';color:' + fontColor + ';}' +
-        'body{background-color:' + bgColor + '; color:' + fontColor + ';}' +
-        ':button{background-color:' + fontColor + '; color:' + bgColor + ';}' +
-        'input[type=text]:focus{border:1px solid ' + fontColor + '!important; color:' + fontColor + ';}' +
-        'input[type="radio"]:after{background-color:' + fontColor + ';}' +
-        '.input-block select{background:' + bgColor + ' !important; color:' + fontColor + ' !important;}' +
-        'input[type="radio"]:checked:after{background-color:' + bgColor + ';border:2px solid ' + fontColor + ';}';
+        //body
+        'body{' + bgAndTextCss + '}' +
+        //buttons
+        ':button{' + bgAndTextCssReverse + '}' +
+        //inputs
+        '.input-control input:focus, .input-control textarea:focus{border:1px solid ' + fontColor + '!important; color:' + fontColor + ';}' +
+        // Select 
+        '.input-control select:focus{border:1px solid ' + fontColor + '!important; color:' + fontColor + ';}' +
+        '.input-control select{background-color: ' + bgColor + ' !important;}'
+        //Radio Box
+        //'input[type="radio"]:after{background-color:' + fontColor + ';}' +
+        //'input[type="radio"]:checked:after{background-color:' + bgColor + ';border:2px solid ' + fontColor + ';}'
+        ;
+
+
     $("<style>" + style + "</style>").appendTo("head")
 }
 
@@ -70,48 +125,8 @@ function RenderPage(pageIndex = 0) {
         $("#btnNext").removeClass(hideCtrlCssClassName);
         $("#btnSubmit").addClass(hideCtrlCssClassName);
     }
-
     var ta = $("#" + SurveyPages[pageIndex].PageId);
-
-    const formRenderOptions =
-    {
-        disableInjectedStyle: false,
-        //container: false,
-        formData: SurveyPages[pageIndex].FormFields,
-        //dataType: 'json', // 'xml' | 'json'
-        //label: {
-        //    formRendered: 'Form Rendered',
-        //    noFormData: 'No form data.',
-        //    other: 'Other',
-        //    selectColor: 'Select Color'
-        //},
-        //render: true,
-        notify: {
-            error: function (message) {
-                return console.error(message);
-            },
-            success: function (message) {
-                return console.log(message);
-            },
-            warning: function (message) {
-                return console.warn(message);
-            }
-        },
-        layoutTemplates: {
-            default: function (field, label, help, data) {
-                // <div class="label">Q3. Would you like to get started NOW?</div>
-                label = $('<div/>')
-                    .addClass('label')
-                    .attr('id', 'lbl-' + data.id)
-                    .text(data.label);
-
-                field = $('<div/>')
-                    .addClass('input-control')
-                    .append(field);
-                return $('<div class="input-block"/>').append(label, field, help);
-            }
-        }
-    };
+    formRenderOptions.formData = SurveyPages[pageIndex].FormFields;
     $(ta).formRender(formRenderOptions);
     $('#form-builder-pages').upform();
     $('#form-builder-pages').find(".input-block").first().click();
@@ -132,7 +147,9 @@ function SubmitSurvey() {
     removeElement(SurveyPages[currentPageIndex].PageId);
 
     // Sumit Date to Server
+    if ($('#form-builder-pages').valid) {
 
+    }
     // Display Thank you message
     $("#frm-btns").addClass(hideCtrlCssClassName);
     $("#thankYou").removeClass(hideCtrlCssClassName);
@@ -189,4 +206,21 @@ function changeRating(pageIndex, ctrlId, value) {
     SurveyPages[currentPageIndex].FormFields = page.FormFields;
 
     //RenderPage(currentPageIndex);
-} 
+}
+
+function renderThemes() {
+    $.getJSON("https://bootswatch.com/api/3.json", function (data) {
+        var themes = data.themes;
+        var select = $("#themes");
+        themes.forEach(function (value, index) {
+            select.append($("<option />")
+                .val(index)
+                .text(value.name));
+        });
+        select.change(function () {
+            var theme = themes[$(this).val()];
+            $("#themes-ss").attr("href", theme.css);
+        }).change();
+
+    }, "json");
+}

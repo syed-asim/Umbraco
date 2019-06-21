@@ -12,25 +12,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Survey Builder</title>
-
-    @*
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">*@
-
+    <link rel="stylesheet" href="/css/FormBuilder/Style.css">
     <link rel='stylesheet' href='/css/bootstrap.min.css'>
     <link rel='stylesheet' href='/css/jquery-ui.css'>
-
-    <link rel="stylesheet" href="/css/FormBuilder/Style.css">
-
 </head>
 
 <body>
 
-
     <div id="surveryIntro" style="padding-top:3rem" class="container">
         <form action="" id="intro-form">
-
             <div class="intro-wrap">
-
 
             </div>
             <div id="saveSurveyIntro-btns" class="form-group">
@@ -41,11 +32,10 @@
         </form>
     </div>
 
-
     <div id="surveryContent" class="container hide-ctrl">
         <form action="" id="form-builder-pages">
 
-            <ul id="tabs">
+            <ul id="tabs" style="display:none;">
 
                 <li id="add-page-tab"><a href="#new-page" class="add-page-tab">+ Page</a></li>
             </ul>
@@ -61,20 +51,12 @@
     <script src='/Scripts//jquery-ui.min.js'></script>
     <script src="/Scripts/FormBuilder/form-builder.min.js"></script>
     <script src="/Scripts/FormBuilder/form-render.min.js"></script>
-    <script src="/scripts/FormBuilder/surveyBuilder.js"></script>
     @*<script src="/scripts/FormBuilder/plugins/starRating.js"></script>*@
-    <script src="/scripts/FormBuilder/plugins/textarea.trumbowyg.js"></script>
+    @*<script src="/scripts/FormBuilder/plugins/textarea.trumbowyg.js"></script>*@
     <script src="/scripts/FormBuilder/plugins/emoRating.js"></script>
-    <script src="/scripts/pekeUpload.min.js"></script>
-    <style>
-        .form-wrap.form-builder .frmb-control li .control-icon {
-            width: auto !important;
-        }
-
-        .hide-ctrl {
-            display: none;
-        }
-    </style>
+    <script src="/scripts/jquery.fileupload.js"></script>
+    <script src="/scripts/FormBuilder/surveyBuilder.js"></script>
+  
 </body>
 
 </html>

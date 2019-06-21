@@ -1,4 +1,61 @@
 
+
+/* UPFORM STYLE STARTS*/
+.upform {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
+    margin: 300px auto;
+    margin-bottom: 500px;
+}
+
+    .upform .upform-main .input-block {
+        padding: 30px 0;
+        opacity: 0.25;
+        cursor: default;
+    }
+
+        .upform .upform-main .input-block .label {
+            display: block;
+            font-size: 1.5em;
+            /*line-height: 78px;*/
+            font-weight: 500;
+        }
+
+        .upform .upform-main .input-block .input-control, .form-control {
+            border: none;
+            outline-width: 0;
+            width: 100%;
+        }
+
+            .upform .upform-main .input-block .input-control input, .upform .upform-main .input-block .input-control select, .upform .upform-main .input-block .input-control textarea {
+                background-color: transparent;
+                padding-bottom: 10px;
+                font-size: 1.5em;
+                font-weight: 500;
+                height: auto;
+            }
+
+        .upform .upform-main .input-block.active {
+            opacity: 1;
+        }
+
+.render-view .upform .upform-main .input-block .input-control {
+    margin: 20px 0;
+}
+
+.render-view .frm-btns {
+    margin-top: 20px;
+}
+
+
+
+/* UPFORM STYLE ENDS*/
+
+
 .save-all-wrap {
     text-align: center;
     padding: 20px;
@@ -60,65 +117,6 @@
     margin-top: 2rem;
 }
 
-input[type="radio"] {
-    -ms-transform: scale(1.5); /* IE 9 */
-    -webkit-transform: scale(1.5); /* Chrome, Safari, Opera */
-    transform: scale(1.5);
-}
-
-.fb-radio label {
-    padding-left: 12px;
-}
-
-input[type='radio']:after {
-    width: 15px;
-    height: 15px;
-    border-radius: 15px;
-    top: -2px;
-    left: -1px;
-    position: relative;
-    /*background-color: #d1d3d1;
-    content: '';*/
-    display: inline-block;
-    visibility: visible;
-    /*border: 2px solid white;*/
-}
-
-input[type='radio']:checked:after {
-    width: 14px;
-    height: 14px;
-    border-radius: 14px;
-    top: -3px;
-    left: -1px;
-    position: relative;
-    /*background-color: red;*/
-    content: '';
-    display: inline-block;
-    visibility: visible;
-    /*border: 2px solid white;*/
-}
-
-.rendered-form .form-control {
-    font-size: 1.5em !important;
-    height: auto !important;
-}
-
-.input-block select {
-    background: transparent !important;
-}
-
-/*.center-div {
-    position: absolute;
-    margin: auto;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    width: 100px;
-    height: 100px;
-    background-color: #ccc;
-    border-radius: 3px;
-}*/
 .vertical-center {
     margin: 0;
     position: absolute;
@@ -133,4 +131,10 @@ input[type='radio']:checked:after {
     width: 100%;
 }
 
+.form-wrap.form-builder .frmb-control li .control-icon {
+    width: auto !important;
+}
 
+.hide-ctrl {
+    display: none;
+}
